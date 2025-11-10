@@ -95,4 +95,5 @@ AFRAME.registerComponent("cursor-listener", {
       });
     }
   }
+
 });
