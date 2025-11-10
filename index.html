@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Virtual Tour</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+    <script src="js/CursorEvents.js"></script>
+    <script src="js/Tour.js"></script>
+    <script src="js/MorePlaces.js"></script>
+  </head>
+  <body>
+    <a-scene id="main-scene">
+      <a-assets id="assets-manager">
+        <a-asset-item
+          id="earth"
+          src="./assets/models/earth/scene.gltf"
+        ></a-asset-item>
+      </a-assets>
+
+      <a-sky id="main-container" radius="5000" color="#ffab91"></a-sky>
+
+      <a-entity id="places-container" cursor-listener tour></a-entity>
+
+      <a-entity
+        id="more-places-container"
+        show-more-places
+        cursor-listener
+      ></a-entity>
+
+      <a-camera id="camera" wasd-controls="enabled:false;">
+        <a-entity
+          id="app-title"
+          position="-1.05 0.73 -1"
+          text="font: exo2bold; align: center; width: 2.5; color: #000; value: VIRTUAL TOUR"
+        >
+          <a-entity
+            id="app-subtitle"
+            position="0 -0.1 0"
+            text="font: dejavu; align: center; width: 1; color: #e65100; value: Travle Around The World"
+          ></a-entity>
+        </a-entity>
+
+        <a-entity
+          id="app-logo"
+          gltf-model="#earth"
+          position="1.25 0.78 -1"
+          scale="-0.00025  -0.0003 -0.00025"
+          animation="property: rotation; to: 0 360 0;  loop: true; dur: 10000;easing:linear;"
+        ></a-entity>
+
+        <a-entity
+          id="camera-cursor"
+          cursor
+          position="0 0 -1"
+          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+          material="color: #fff; shader: flat"
+        >
+        </a-entity>
+      </a-camera>
+    </a-scene>
+  </body>
+</html>
