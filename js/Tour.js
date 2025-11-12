@@ -75,7 +75,7 @@ AFRAME.registerComponent("tour", {
     });
     entityEl.setAttribute("position", position);
     entityEl.setAttribute("material", {
-      color: "#00bcd4",
+      color: "rgba(0, 0, 0, 1)",
       opacity: 0.4
     });
     entityEl.setAttribute("cursor-listener", {});
@@ -97,7 +97,7 @@ AFRAME.registerComponent("tour", {
     entityEl.setAttribute("text", {
       font: "exo2bold",
       align: "center",
-      width: 60,
+      width: 80,
       color: "#e65100",
       value: item.title
     });
