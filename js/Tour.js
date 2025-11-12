@@ -98,7 +98,7 @@ AFRAME.registerComponent("tour", {
       font: "exo2bold",
       align: "center",
       width: 80,
-      color: "#e65100",
+      color: "rgba(7, 70, 158, 1)",
       value: item.title
     });
     const elPosition = position;
