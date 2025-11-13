@@ -16,9 +16,9 @@ AFRAME.registerComponent("cursor-listener", {
         const id = this.el.getAttribute("id");
         const placesId = [
           "taj-mahal",
-          // "budapest",
-          // "new-york-city",
-          // "eiffel-tower"
+          "budapest",
+          "new-york-city",
+          "eiffel-tower"
         ];
         if (placesId.includes(id)) {
           placesContainer.setAttribute("tour", {

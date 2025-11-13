@@ -19,12 +19,14 @@ AFRAME.registerComponent("tour", {
       const sidebar = document.querySelector("#sidebar");
       const sidebarTitle = document.querySelector("#sidebar-title");
       const sidebarBody = document.querySelector("#sidebar-body");
+      const comingSoon = document.querySelector("#coming-soon")
 
       sidebarTitle.setAttribute("text", { value: "Taj Mahal" });
       sidebarBody.setAttribute("text", {
         value:
           "Taj Mahal is an ivory-white marble mausoleum on the right bank of the river Yamuna in the Indian city of Agra. It was commissioned in 1632 by the Mughal emperor Shah Jahan (ruler. 1628–1658) to house the tomb of his favourite wife, Mumtaz Mahal.",
       });
+      comingSoon.setAttribute("visible",false)
 
       sidebar.setAttribute("visible", true);
       sidebarTitle.setAttribute("visible", true);
