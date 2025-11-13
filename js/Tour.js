@@ -1,3 +1,4 @@
+// Tour.js
 AFRAME.registerComponent("tour", {
   schema: {
     state: { type: "string", default: "places-list" },
@@ -15,22 +16,16 @@ AFRAME.registerComponent("tour", {
     if (state === "view") {
       this.hideEl([this.placesContainer]);
       this.showView();
-
+      // const vrButton = document.querySelector("#vr-button")
+      const appTitle = document.querySelector("#app-title")
+      // vrButton.setAttribute("visible", false);
+      appTitle.setAttribute("visible", false)
+      this.updateSidebar();
+    }
+    
+    if (state !== "view" && state !== "change-view") {
       const sidebar = document.querySelector("#sidebar");
-      const sidebarTitle = document.querySelector("#sidebar-title");
-      const sidebarBody = document.querySelector("#sidebar-body");
-      const comingSoon = document.querySelector("#coming-soon")
-
-      sidebarTitle.setAttribute("text", { value: "Taj Mahal" });
-      sidebarBody.setAttribute("text", {
-        value:
-          "Taj Mahal is an ivory-white marble mausoleum on the right bank of the river Yamuna in the Indian city of Agra. It was commissioned in 1632 by the Mughal emperor Shah Jahan (ruler. 1628–1658) to house the tomb of his favourite wife, Mumtaz Mahal.",
-      });
-      comingSoon.setAttribute("visible",false)
-
-      sidebar.setAttribute("visible", true);
-      sidebarTitle.setAttribute("visible", true);
-      sidebarBody.setAttribute("visible", true);
+      sidebar.setAttribute("visible", false);
     }
   },
   hideEl: function (elList) {
@@ -44,23 +39,20 @@ AFRAME.registerComponent("tour", {
         id: "taj-mahal",
         title: "Taj Mahal",
         url: "../assets/thumbnails/taj_mahal.png",
+        description: "Taj Mahal is an ivory-white marble mausoleum on the right bank of the river Yamuna in the Indian city of Agra. It was commissioned in 1632 by the Mughal emperor Shah Jahan to house the tomb of his favourite wife, Mumtaz Mahal."
       },
-      // {
-      //   id: "budapest",
-      //   title: "Budapest",
-      //   url: "../assets/thumbnails/budapest.jpg"
-      // },
-
-      // {
-      //   id: "eiffel-tower",
-      //   title: "Eiffel Tower",
-      //   url: "../assets/thumbnails/eiffel_tower.png"
-      // },
-      // {
-      //   id: "new-york-city",
-      //   title: "New York City",
-      //   url: "../assets/thumbnails/new_york_city.png"
-      // }
+      {
+        id: "coming-soon-1",
+        title: "Coming Soon",
+        url: "../assets/NA.png",
+        description: "This location is coming soon. Check back later for an amazing virtual tour experience."
+      },
+      {
+        id: "coming-soon-2",
+        title: "Coming Soon",
+        url: "../assets/NA.png",
+        description: "This location is coming soon. Check back later for an amazing virtual tour experience."
+      }
     ];
     let prevoiusXPosition = -60;
     for (var item of thumbNailsRef) {
@@ -126,10 +118,47 @@ AFRAME.registerComponent("tour", {
   showView: function () {
     const { selectedCard } = this.data;
     const skyEl = document.querySelector("#main-container");
-    skyEl.setAttribute("material", {
-      src: `../assets/360_images/${selectedCard}/place-0.jpg`,
-      color: "#fff",
-    });
+    
+    // Only show 360 image for Taj Mahal, show default sky for others
+    if (selectedCard === "taj-mahal") {
+      skyEl.setAttribute("material", {
+        src: `../assets/360_images/${selectedCard}/place-0.jpg`,
+        color: "#fff",
+      });
+    } else {
+      skyEl.setAttribute("material", {
+        color: "#96D3F1"
+      });
+    }
+  },
+  updateSidebar: function() {
+    const { selectedCard } = this.data;
+    const sidebar = document.querySelector("#sidebar");
+    const sidebarTitle = document.querySelector("#sidebar-title");
+    const sidebarBody = document.querySelector("#sidebar-body");
+    
+    // Define location information
+    const locationInfo = {
+      "taj-mahal": {
+        title: "Taj Mahal",
+        description: "Taj Mahal is an ivory-white marble mausoleum on the right bank of the river Yamuna in the Indian city of Agra. It was commissioned in 1632 by the Mughal emperor Shah Jahan to house the tomb of his favourite wife, Mumtaz Mahal."
+      },
+      "coming-soon-1": {
+        title: "Coming Soon",
+        description: "This location is coming soon. Check back later for an amazing virtual tour experience."
+      },
+      "coming-soon-2": {
+        title: "Coming Soon",
+        description: "This location is coming soon. Check back later for an amazing virtual tour experience."
+      }
+    };
+    
+    // Update sidebar with location information
+    if (locationInfo[selectedCard]) {
+      sidebarTitle.setAttribute("text", { value: locationInfo[selectedCard].title });
+      sidebarBody.setAttribute("text", { value: locationInfo[selectedCard].description });
+      sidebar.setAttribute("visible", true);
+    }
   },
   update: function () {
     window.addEventListener("keydown", (e) => {

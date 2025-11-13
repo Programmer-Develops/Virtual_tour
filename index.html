@@ -9,29 +9,49 @@
     <script src="js/CursorEvents.js"></script>
     <script src="js/Tour.js"></script>
     <script src="js/MorePlaces.js"></script>
+    <style>
+      #vr-button {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+        background-color: #e65100;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 4px;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+      #vr-button:hover {
+        background-color: #ff7043;
+      }
+    </style>
   </head>
   <body>
     <a-scene id="main-scene" background="color:#96D3F1">
       <a-assets id="assets-manager">
         <a-asset-item id="earth" src="./assets/models/earth/scene.gltf"></a-asset-item>
-
         <img id="app-logo-img" src="./assets/tour_quest.png" crossorigin="anonymous"/>
-
+        <img id="na-img" src="./assets/NA.png" crossorigin="anonymous"/>
       </a-assets>
 
-      <a-sky id="main-container" radius="5000" color="#96D3F1"></a-sky>
+      <a-sky id="main-container" radius="5000" color="#fdedd4"></a-sky>
 
       <a-entity id="places-container" cursor-listener tour></a-entity>
       <a-entity id="more-places-container" show-more-places cursor-listener></a-entity>
-      <a-entity id="coming-soon" position="0.2 1.8 -1" text="font: exo2bold; align:center; width:2.5; color:black; value:More places to come soon..."></a-entity>
+      <!-- <a-entity id="coming-soon" position="0.2 1.8 -1" text="font: exo2bold; align:center; width:2.5; color:black; value:More places to come soon..."></a-entity> -->
 
       <a-camera id="camera" wasd-controls="enabled:false;">
         <a-entity id="app-title"
-                  position="-1.35 0.73 -1"
-                  text="font: exo2bold; align: center; width: 2.5; color: #000; value: TOUR QUEST">
+                  position="0 0.73 -1"
+                  text="font: exo2bold; align: center; width: 2.5; color: #113156; value: TOURQUEST">
           <a-entity id="app-subtitle"
                     position="0 -0.1 0"
-                    text="font: dejavu; align: center; width: 1.5; color: #e65100; value: VIRTUAL TOUR">
+                    text="font: dejavu; align: center; width: 1; color: #4d4538; value: Explore India Before You Visit It">
           </a-entity>
         </a-entity>
 
@@ -74,5 +94,29 @@
         </a-entity>
       </a-camera>
     </a-scene>
+    
+    <button id="vr-button">VR EXPLORE NOW</button>
+    
+    <script>
+      document.getElementById('vr-button').addEventListener('click', function() {
+        const placesContainer = document.querySelector("#places-container");
+        const { state } = placesContainer.getAttribute("tour");
+        
+        if (state === "places-list") {
+          const { selectedItemId } = placesContainer.getAttribute("cursor-listener");
+          if (selectedItemId) {
+            placesContainer.setAttribute("tour", {
+              state: "view",
+              selectedCard: selectedItemId
+            });
+          } else {
+            placesContainer.setAttribute("tour", {
+              state: "view",
+              selectedCard: "taj-mahal"
+            });
+          }
+        }
+      });
+    </script>
   </body>
 </html>

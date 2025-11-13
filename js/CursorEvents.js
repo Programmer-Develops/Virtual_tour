@@ -1,3 +1,4 @@
+// CursorEvents.js
 AFRAME.registerComponent("cursor-listener", {
   schema: {
     selectedItemId: { default: "", type: "string" }
@@ -16,9 +17,8 @@ AFRAME.registerComponent("cursor-listener", {
         const id = this.el.getAttribute("id");
         const placesId = [
           "taj-mahal",
-          "budapest",
-          "new-york-city",
-          "eiffel-tower"
+          "coming-soon-1",
+          "coming-soon-2"
         ];
         if (placesId.includes(id)) {
           placesContainer.setAttribute("tour", {
@@ -47,7 +47,7 @@ AFRAME.registerComponent("cursor-listener", {
   },
   handlePlacesListState: function() {
     const id = this.el.getAttribute("id");
-    const placesId = ["taj-mahal", "budapest", "new-york-city", "eiffel-tower"];
+    const placesId = ["taj-mahal", "coming-soon-1", "coming-soon-2"];
     if (placesId.includes(id)) {
       const placeContainer = document.querySelector("#places-container");
       placeContainer.setAttribute("cursor-listener", {
@@ -95,5 +95,4 @@ AFRAME.registerComponent("cursor-listener", {
       });
     }
   }
-
 });
